@@ -1,0 +1,58 @@
+<form [formGroup]="employeeForm" (ngSubmit)="updateSelectedEmployee()">
+    <div layout="row">
+        <mat-form-field flex>
+        <input matInput placeholder="Title" type="text" maxlength="4" formControlName="title">
+        <mat-error *ngIf="title.errors && (title.dirty || title.touched)" align="end" > Title is
+       required </mat-error>
+        </mat-form-field>
+       </div>
+    <div layout="row">
+        <mat-form-field flex>
+            <input matInput placeholder="First Name" type="text" formControlName="firstname">
+            <mat-error *ngIf="firstname.errors && (firstname.dirty || firstname.touched)" align="end" > First Name is
+           required </mat-error>
+            </mat-form-field>
+    </div>
+    <div layout="row">
+        <mat-form-field flex>
+            <input matInput placeholder="Last Name" type="text" formControlName="lastname">
+            <mat-error *ngIf="lastname.errors && (lastname.dirty || lastname.touched)" align="end" > Last Name is
+           required </mat-error>
+            </mat-form-field>
+    </div>
+    <div layout="row">
+        <mat-form-field flex>
+        <input matInput placeholder="Phone #" type="text" required formControlName="phoneno">
+        <mat-error *ngIf="phoneno.errors && (phoneno.dirty || phoneno.touched)" align="end">
+        <p *ngIf="phoneno.hasError('required')">Phone# is required.</p>
+       <p *ngIf="!phoneno.hasError('required') && phoneno.hasError('invalidPhone')">needs format -
+        (###)###-####</p>
+        </mat-error>
+        </mat-form-field>
+        </div>       
+    <div layout="row">
+        <mat-form-field flex>
+            <input matInput placeholder="Email" type="text" formControlName="email">
+            <mat-error *ngIf="email.errors && (email.dirty || email.touched)" align="end">
+                <p *ngIf="email.hasError('required')">Email is required.</p>
+               <p *ngIf="!email.hasError('required') && !email.valid">needs format -
+                ex@xx.xx</p>
+            </mat-error>
+            </mat-form-field>
+    </div>
+    <div class="mat-pad-sm">
+        <span>
+            <button mat-raised-button type="button" (click)="updateSelectedEmployee()" [disabled]="!employeeForm.valid">
+            Save
+            </button>
+           </span>
+    <span>
+        <button *ngIf="selectedEmployee.id" mat-raised-button type="button"
+        (click)="deleted.emit(selectedEmployee)">Delete</button>
+        </span>       
+    <span>
+    <button mat-raised-button type="button" (click)="cancelled.emit(selectedEmployee)">Cancel</button>
+    </span>
+    </div>
+   </form>
+   
